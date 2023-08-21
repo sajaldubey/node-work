@@ -1,5 +1,6 @@
 const express = require("express");
 const tasks = require("./routes/tasks");
+const notFound = require("./middleware/not-found");
 const app = express();
 require("dotenv").config();
 // used when direct function is being called in a file which is being required
@@ -13,6 +14,10 @@ app.use(express.json());
 
 // ROUTES
 app.use("/api/v1/tasks", tasks);
+// Mounting Default Routing Middleware
+// This middleware function will be called whenever a request is made
+// to a route that is not specified in your application.
+app.use(notFound);
 
 const start = async () => {
   try {
